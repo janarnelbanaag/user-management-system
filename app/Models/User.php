@@ -11,22 +11,22 @@ class User extends Authenticatable
     use HasFactory;
 
     protected $fillable = [
-        "first_name",
-        "last_name",
-        "address",
-        "postcode",
-        "phone_number",
-        "email",
-        "username",
-        "password",
-        "role"
+        'first_name',
+        'last_name',
+        'address',
+        'postcode',
+        'phone_number',
+        'email',
+        'username',
+        'password',
+        'role'
     ];
 
     protected $hidden = [
-        "password"
+        'password'
     ];
 
     protected $casts = [
-        "password" => "hashed"
+        'password' => 'hashed'
     ];
 }
