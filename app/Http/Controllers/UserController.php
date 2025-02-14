@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Services\ApiService;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class UserController extends Controller
 {
@@ -64,6 +65,13 @@ class UserController extends Controller
 
         return response()->json([
             'message' => 'Logged out successfully'
+        ]);
+    }
+
+    public function dashboard()
+    {
+        return Inertia::render('Dashboard', [
+            'users' => User::where('role', '!=', 'admin')->get(),
         ]);
     }
 }
