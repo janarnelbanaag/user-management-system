@@ -4,7 +4,7 @@ import { Head, usePage } from "@inertiajs/vue3";
 import { computed } from "vue";
 
 const users = computed(() => usePage().props.users);
-console.log(users);
+const errorMessage = computed(() => usePage().props.errorMessage);
 
 const deleteUser = (id) => {
     if (confirm("Are you sure you want to delete this user?")) {
@@ -69,6 +69,10 @@ const deleteUser = (id) => {
                                 Delete
                             </button>
                         </div>
+                    </div>
+
+                    <div v-if="errorMessage" class="mt-4 text-sm text-red-500">
+                        {{ errorMessage }}
                     </div>
                 </div>
             </div>
