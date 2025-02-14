@@ -1,5 +1,5 @@
 <script setup>
-import { useForm } from "@inertiajs/vue3";
+import { router, useForm } from "@inertiajs/vue3";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
@@ -11,22 +11,27 @@ const form = useForm({
     password: "",
 });
 
-const submit = () => {
-    form.post("/login", {
-        preserveScroll: true,
-        onSuccess: (response) => {
-            if (response.props.auth?.user) {
-                localStorage.setItem("auth_token", response.props.auth.token);
-                localStorage.setItem(
-                    "user",
-                    JSON.stringify(response.props.auth.user),
-                );
-            }
-        },
-        onError: () => {
-            console.error("Login failed");
-        },
-    });
+const submit = async () => {
+    try {
+        const response = await axios.post("/auth/login", {
+            email: form.email,
+            password: form.password,
+        });
+
+        if (response.data.data.token) {
+            localStorage.setItem("auth_token", response.data.data.token);
+            localStorage.setItem(
+                "user",
+                JSON.stringify(response.data.data.user),
+            );
+            console.log("Login successful!");
+
+            router.get("/dashboard");
+        }
+    } catch (error) {
+        console.error("Login failed:", error.response.data.error);
+        form.errors.error = error.response.data.error;
+    }
 };
 </script>
 
@@ -60,18 +65,11 @@ const submit = () => {
 
             <div class="mt-4 flex items-center justify-end">
                 <PrimaryButton
-                    class="ms-4"
+                    class="ms-4 bg-green-500 hover:bg-green-700 focus:bg-green-700 active:bg-green-900"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
                     Log in
-                </PrimaryButton>
-                <PrimaryButton
-                    class="ms-4"
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Register
                 </PrimaryButton>
             </div>
 

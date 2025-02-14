@@ -11,7 +11,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/dashboard', [UserController::class, 'dashboard'])
-    ->middleware(['auth'])
+    ->middleware(['auth:sanctum'])
     ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
