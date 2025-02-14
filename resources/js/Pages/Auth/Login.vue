@@ -5,10 +5,22 @@ import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
+import { onMounted, ref } from "vue";
 
 const form = useForm({
     email: "",
     password: "",
+});
+
+const isChecking = ref(true);
+
+onMounted(() => {
+    const token = localStorage.getItem("auth_token");
+    if (token) {
+        router.get(route("dashboard"));
+    } else {
+        isChecking.value = false;
+    }
 });
 
 const submit = async () => {
@@ -37,7 +49,12 @@ const submit = async () => {
 
 <template>
     <GuestLayout>
-        <form @submit.prevent="submit">
+        <!-- To avoid page flickering -->
+        <div v-if="isChecking">
+            <p class="text-gray-500">Checking authentication...</p>
+        </div>
+
+        <form v-else @submit.prevent="submit">
             <div>
                 <InputLabel for="email" value="Email" />
                 <TextInput
