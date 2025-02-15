@@ -1,5 +1,6 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import { Inertia } from "@inertiajs/inertia";
 import { Head, usePage } from "@inertiajs/vue3";
 import { computed } from "vue";
 
@@ -8,8 +9,13 @@ const errorMessage = computed(() => usePage().props.errorMessage);
 
 const deleteUser = (id) => {
     if (confirm("Are you sure you want to delete this user?")) {
-        axios.delete(route("users.destroy", id)).then(() => {
-            location.reload();
+        Inertia.delete(route("delete", id), {
+            onSuccess: () => {
+                Inertia.reload();
+            },
+            onError: (error) => {
+                console.error("Deletion failed:", error);
+            },
         });
     }
 };
@@ -53,7 +59,11 @@ const deleteUser = (id) => {
                                 View
                             </button>
                             <button
-                                @click="$inertia.get(route('edit', user.id))"
+                                @click="
+                                    $inertia.get(
+                                        route('view', user.id) + '?isEdit=true',
+                                    )
+                                "
                                 class="rounded-md bg-blue-500 px-3 py-1 text-white"
                             >
                                 Edit
