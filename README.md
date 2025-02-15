@@ -32,7 +32,7 @@ The application uses Laravel as its backend, Inertia.js for SPA navigation, and 
 
 ### Steps
 
-1. **Clone the Repository**
+## 1. **Clone the Repository**
 
 ```bash
 git clone https://github.com/janarnelbanaag/user-management-system.git
