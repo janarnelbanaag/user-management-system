@@ -53,13 +53,13 @@ npm install
 
 ## 4. **Configure Environment**
 
-    Copy the example environment file and update your configuration:
+Copy the example environment file and update your configuration:
 
 ```bash
 cp .env.example .env
 ```
 
-    Update the .env file with your database credentials and other settings.
+Update the .env file with your database credentials and other settings.
 
 ## 5. **Database Setup**
 
@@ -74,13 +74,13 @@ php artisan db:seed
 
 ## Running the Project
 
-    Start the local development server:
+Start the local development server:
 
 ```bash
 composer run dev
 ```
 
-    Access the application at http://localhost:8000.
+Access the application at http://localhost:8000.
 
 ## Usage
 
