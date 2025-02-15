@@ -14,11 +14,6 @@ import { Head, Link } from "@inertiajs/vue3";
                 class="rounded bg-blue-500 px-4 py-2 text-white"
                 >Login</Link
             >
-            <Link
-                :href="route('register')"
-                class="rounded bg-green-500 px-4 py-2 text-white"
-                >Register</Link
-            >
         </div>
     </div>
 </template>
