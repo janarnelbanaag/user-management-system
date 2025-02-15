@@ -23,22 +23,30 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (\Illuminate\Validation\ValidationException $e, $request) {
-            return response()->json([
-                'message' => 'Validation failed',
-                'error' => $e->getMessage()
-            ], 422);
+            if ($request->is('api/*')) {
+                return response()->json([
+                    'message' => 'Validation failed',
+                    'error' => $e->getMessage()
+                ], 422);
+            } 
         });
     
         $exceptions->render(function (\Illuminate\Auth\AuthenticationException $e, $request) {
-            return response()->json([
-                'error' => $e->getMessage(),
-            ], 401);
+            if ($request->is('api/*')) {
+                return response()->json([
+                    'error' => $e->getMessage(),
+                ], 401);
+            } else {
+                return redirect()->guest(route('login'))->with('message', 'User needs to be logged in.');
+            }
         });
     
         $exceptions->render(function (\Throwable $e, $request) {
-            return response()->json([
-                'message' => 'Something went wrong',
-                'error' => $e->getMessage()
-            ], 500);
+            if ($request->is('api/*')) {
+                return response()->json([
+                    'message' => 'Something went wrong',
+                    'error' => $e->getMessage()
+                ], 500);
+            }
         });
     })->create();
