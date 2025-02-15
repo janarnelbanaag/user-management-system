@@ -16,7 +16,7 @@ The application uses Laravel as its backend, Inertia.js for SPA navigation, and 
 
 ## Features
 
-- **User Authentication**: Secure, session-based authentication with Laravel.
+- **User Authentication**: Secure, session-based authentication using database with Laravel.
 - **Admin Dashboard**: An interface for admin users to manage other users.
 - **User Management**: View, edit, and delete non-admin users.
 - **Role-Based Access Control**: Only users with the admin role can access administrative routes.
@@ -34,47 +34,51 @@ The application uses Laravel as its backend, Inertia.js for SPA navigation, and 
 
 1. **Clone the Repository**
 
-    ```bash
-    git clone https://github.com/janarnelbanaag/user-management-system.git
-    cd user-management-system
-    ```
+```bash
+git clone https://github.com/janarnelbanaag/user-management-system.git
+cd user-management-system
+```
 
-## 2. Install PHP Dependencies
+## 2. **Install PHP Dependencies**
 
-    ```bash
-    composer install
-    ```
+```bash
+composer install
+```
 
-## 3. Install JavaScript Dependencies
+## 3. **Install JavaScript Dependencies**
 
-    ```bash
-    npm install
-    ```
+```bash
+npm install
+```
 
-## 4. Configure Environment
+## 4. **Configure Environment**
 
     Copy the example environment file and update your configuration:
 
-    ```bash
-    cp .env.example .env
-    ```
+```bash
+cp .env.example .env
+```
 
     Update the .env file with your database credentials and other settings.
 
-## 5. Run Migrations and Seeds
+## 5. **Database Setup**
 
-    ```
-    php artisan migrate
-    php artisan db:seed
-    ```
+Make sure you have a database named user_management_system (or update your .env file to match your database name).
+
+## 6. **Run Migrations and Seeds**
+
+```bash
+php artisan migrate
+php artisan db:seed
+```
 
 ## Running the Project
 
     Start the local development server:
 
-    ```
-    composer run dev
-    ```
+```bash
+composer run dev
+```
 
     Access the application at http://localhost:8000.
 
@@ -94,14 +98,6 @@ The application uses Laravel as its backend, Inertia.js for SPA navigation, and 
     - **View User:** `/user/{id}` (for a read-only view).
     - **Edit User:** `/user/{id}?isEdit=true` (for an editable view).
     - **Delete User:** A DELETE request is sent to `/user/{id}` to remove a user.
-
-## Contributing
-
-Contributions are welcome! Please fork the repository and open a pull request with your improvements.
-
-## License
-
-This project is open-sourced under the [MIT License](LICENSE).
 
 ## Acknowledgements
 

@@ -17,10 +17,6 @@ Route::get('/session-check', function () {
     ]);
 });
 
-Route::get('/view', function () {
-    return Inertia::render('Auth/ViewUser');
-})->name('view');
-
 Route::middleware('guest')->group(function () {
     Route::get('/login', function () {
         return Inertia::render('Auth/Login');
