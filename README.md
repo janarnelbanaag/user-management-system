@@ -30,28 +30,28 @@ The application uses Laravel as its backend, Inertia.js for SPA navigation, and 
 - Node.js & npm (or yarn)
 - A database (e.g., MySQL, PostgreSQL, SQLite)
 
-### Steps
+## Steps
 
-## 1. **Clone the Repository**
+### 1. **Clone the Repository**
 
 ```bash
 git clone https://github.com/janarnelbanaag/user-management-system.git
 cd user-management-system
 ```
 
-## 2. **Install PHP Dependencies**
+### 2. **Install PHP Dependencies**
 
 ```bash
 composer install
 ```
 
-## 3. **Install JavaScript Dependencies**
+### 3. **Install JavaScript Dependencies**
 
 ```bash
 npm install
 ```
 
-## 4. **Configure Environment**
+### 4. **Configure Environment**
 
 Copy the example environment file and update your configuration:
 
@@ -61,11 +61,11 @@ cp .env.example .env
 
 Update the .env file with your database credentials and other settings.
 
-## 5. **Database Setup**
+### 5. **Database Setup**
 
 Make sure you have a database named user_management_system (or update your .env file to match your database name).
 
-## 6. **Run Migrations and Seeds**
+### 6. **Run Migrations and Seeds**
 
 ```bash
 php artisan migrate
