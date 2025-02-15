@@ -67,11 +67,4 @@ class UserController extends Controller
             'message' => 'Logged out successfully'
         ]);
     }
-
-    public function dashboard()
-    {
-        return Inertia::render('Dashboard', [
-            'users' => User::where('role', '!=', 'admin')->get(),
-        ]);
-    }
 }

@@ -47,18 +47,14 @@ const deleteUser = (id) => {
 
                         <div class="mt-4 flex justify-end gap-2">
                             <button
-                                @click="
-                                    $inertia.get(route('users.show', user.id))
-                                "
-                                class="rounded-md bg-blue-500 px-3 py-1 text-white"
+                                @click="$inertia.get(route('view', user.id))"
+                                class="rounded-md bg-green-500 px-3 py-1 text-white"
                             >
                                 View
                             </button>
                             <button
-                                @click="
-                                    $inertia.get(route('users.edit', user.id))
-                                "
-                                class="rounded-md bg-yellow-500 px-3 py-1 text-white"
+                                @click="$inertia.get(route('edit', user.id))"
+                                class="rounded-md bg-blue-500 px-3 py-1 text-white"
                             >
                                 Edit
                             </button>
