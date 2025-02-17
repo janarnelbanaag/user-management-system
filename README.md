@@ -8,6 +8,7 @@ This project is a modern user management system that allows admin users to:
 
 - log in and log out.
 - View a dashboard listing non-admin users.
+- Add new users or admin.
 - View detailed user profiles.
 - Edit a user.
 - Delete users.
@@ -18,7 +19,7 @@ The application uses Laravel as its backend, Inertia.js for SPA navigation, and 
 
 - **User Authentication**: Secure, session-based authentication using database with Laravel.
 - **Admin Dashboard**: An interface for admin users to manage other users.
-- **User Management**: View, edit, and delete non-admin users.
+- **User Management**: View, add, edit, and delete non-admin users.
 - **Role-Based Access Control**: Only users with the admin role can access administrative routes.
 
 ## Installation
