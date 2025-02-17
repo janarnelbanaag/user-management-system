@@ -1,17 +1,36 @@
 <script setup>
-import { computed } from "vue";
+import { computed, reactive } from "vue";
 import { Head, usePage } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 
 const { props, url } = usePage();
 
-const user = computed(() => props.user);
+const queryString = url.split("?")[1] || "";
+const params = new URLSearchParams(queryString);
 
 const isEdit = computed(() => {
-    const queryString = url.split("?")[1] || "";
-    const params = new URLSearchParams(queryString);
-    return params.get("isEdit") === "true";
+    return params.get("isEdit") === "true" || params.get("addUser") === "true";
 });
+
+const isAddUser = computed(() => {
+    return params.get("addUser") === "true";
+});
+
+const userData = reactive(
+    isAddUser.value
+        ? {
+              first_name: "",
+              last_name: "",
+              address: "",
+              postcode: "",
+              phone_number: "",
+              email: "",
+              username: "",
+              password: "",
+              role: "user",
+          }
+        : { ...props.user },
+);
 </script>
 
 <template>
@@ -26,12 +45,12 @@ const isEdit = computed(() => {
                     <template v-if="isEdit">
                         <input
                             type="text"
-                            v-model="user.first_name"
+                            v-model="userData.first_name"
                             class="w-full rounded border p-2"
                         />
                     </template>
                     <template v-else>
-                        <span>{{ user.first_name }}</span>
+                        <span>{{ userData.first_name }}</span>
                     </template>
                 </div>
 
@@ -40,12 +59,12 @@ const isEdit = computed(() => {
                     <template v-if="isEdit">
                         <input
                             type="text"
-                            v-model="user.last_name"
+                            v-model="userData.last_name"
                             class="w-full rounded border p-2"
                         />
                     </template>
                     <template v-else>
-                        <span>{{ user.last_name }}</span>
+                        <span>{{ userData.last_name }}</span>
                     </template>
                 </div>
 
@@ -54,12 +73,12 @@ const isEdit = computed(() => {
                     <template v-if="isEdit">
                         <input
                             type="text"
-                            v-model="user.address"
+                            v-model="userData.address"
                             class="w-full rounded border p-2"
                         />
                     </template>
                     <template v-else>
-                        <span>{{ user.address }}</span>
+                        <span>{{ userData.address }}</span>
                     </template>
                 </div>
 
@@ -68,12 +87,12 @@ const isEdit = computed(() => {
                     <template v-if="isEdit">
                         <input
                             type="text"
-                            v-model="user.postcode"
+                            v-model="userData.postcode"
                             class="w-full rounded border p-2"
                         />
                     </template>
                     <template v-else>
-                        <span>{{ user.postcode }}</span>
+                        <span>{{ userData.postcode }}</span>
                     </template>
                 </div>
 
@@ -82,12 +101,12 @@ const isEdit = computed(() => {
                     <template v-if="isEdit">
                         <input
                             type="text"
-                            v-model="user.phone_number"
+                            v-model="userData.phone_number"
                             class="w-full rounded border p-2"
                         />
                     </template>
                     <template v-else>
-                        <span>{{ user.phone_number }}</span>
+                        <span>{{ userData.phone_number }}</span>
                     </template>
                 </div>
 
@@ -96,12 +115,12 @@ const isEdit = computed(() => {
                     <template v-if="isEdit">
                         <input
                             type="email"
-                            v-model="user.email"
+                            v-model="userData.email"
                             class="w-full rounded border p-2"
                         />
                     </template>
                     <template v-else>
-                        <span>{{ user.email }}</span>
+                        <span>{{ userData.email }}</span>
                     </template>
                 </div>
 
@@ -110,12 +129,12 @@ const isEdit = computed(() => {
                     <template v-if="isEdit">
                         <input
                             type="text"
-                            v-model="user.username"
+                            v-model="userData.username"
                             class="w-full rounded border p-2"
                         />
                     </template>
                     <template v-else>
-                        <span>{{ user.username }}</span>
+                        <span>{{ userData.username }}</span>
                     </template>
                 </div>
 
@@ -124,12 +143,12 @@ const isEdit = computed(() => {
                     <template v-if="isEdit">
                         <input
                             type="password"
-                            v-model="user.password"
+                            v-model="userData.password"
                             class="w-full rounded border p-2"
                         />
                     </template>
                     <template v-else>
-                        <span>{{ user.password }}</span>
+                        <span>{{ userData.password }}</span>
                     </template>
                 </div>
 
@@ -137,7 +156,7 @@ const isEdit = computed(() => {
                     <label class="block font-bold">Role:</label>
                     <template v-if="isEdit">
                         <select
-                            v-model="user.role"
+                            v-model="userData.role"
                             class="w-full rounded border p-2"
                         >
                             <option value="user">User</option>
@@ -145,13 +164,20 @@ const isEdit = computed(() => {
                         </select>
                     </template>
                     <template v-else>
-                        <span>{{ user.role }}</span>
+                        <span>{{ userData.role }}</span>
                     </template>
                 </div>
 
                 <div v-if="isEdit" class="mt-6">
                     <button
-                        @click="$inertia.put(route('edit', user.id), user)"
+                        @click="
+                            isAddUser
+                                ? $inertia.post(route('add'), userData)
+                                : $inertia.put(
+                                      route('edit', userData.id),
+                                      userData,
+                                  )
+                        "
                         class="rounded bg-blue-500 px-3 py-1 text-white"
                     >
                         Save

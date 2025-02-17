@@ -26,9 +26,19 @@ const deleteUser = (id) => {
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                User Management Dashboard
-            </h2>
+            <div class="flex justify-between">
+                <h2 class="text-xl font-semibold leading-tight text-gray-800">
+                    User Management Dashboard
+                </h2>
+                <button
+                    @click="
+                        $inertia.get(route('addUserPage') + '?addUser=true')
+                    "
+                    class="rounded-md bg-green-500 px-3 py-1 text-white"
+                >
+                    Add
+                </button>
+            </div>
         </template>
 
         <div class="py-12">
